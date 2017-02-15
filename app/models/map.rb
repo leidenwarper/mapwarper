@@ -193,6 +193,10 @@ class Map < ActiveRecord::Base
       logger.info "Deleted Map warped"
       File.delete(warped_filename)
     end
+    if File.exists?(warped_overviews_filename)
+      logger.info "Deleted external warped overviews file"
+      File.delete(warped_overviews_filename)
+    end
     if File.exists?(warped_png_filename)
       logger.info "deleted warped png"
       File.delete(warped_png_filename)
@@ -293,6 +297,10 @@ class Map < ActiveRecord::Base
 
   def warped_filename
     File.join(warped_dir, id.to_s) + ".tif"
+  end
+  
+  def warped_overviews_filename
+    File.join(warped_dir, id.to_s) + ".aux"
   end
 
   def warped_png_dir
